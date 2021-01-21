@@ -16,7 +16,7 @@ mysql -u root -e "grant all privileges on *.* to 'admin'@'localhost'"
 #saving the privileges for admin
 mysql -u root -e "flush privileges"
 
-mysql -u root -e "exit" 
+mysql -u root -e "quit" 
 rc-service mariadb stop 
 rc-service mariadb start
 sleep 2
