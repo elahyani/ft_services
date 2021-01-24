@@ -4,8 +4,6 @@ FROM alpine:3.12.3
 
 RUN apk update
 
-RUN apk search mariadb
-
 RUN apk add openrc mariadb mariadb-client
 
 RUN rc-status
