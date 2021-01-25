@@ -2,4 +2,17 @@
 
 rc-service vsftpd restart
 
-cat /dev/random > /dev/null
+while true
+do
+	ftps=`rc-service nginx status | grep -c FAIL`
+
+	if [ $Nginx -eq 1 ]
+	then
+		echo "Nginx has stopped!"
+		echo "Restarting Nginx..."
+		rc-service nginx restart
+	else
+		echo "Nginx is up!"
+	fi
+	sleep 2
+done
