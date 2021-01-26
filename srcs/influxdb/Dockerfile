@@ -16,4 +16,4 @@ ADD /srcs/influxdb.conf /etc/ifluxdb.conf
 ADD /srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 
-ENTRYPOINT /usr/bin/run.sh && /bin/sh
+ENTRYPOINT /usr/bin/run.sh

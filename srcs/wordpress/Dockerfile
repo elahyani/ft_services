@@ -8,6 +8,10 @@ RUN apk add --no-cache bash openrc nginx
 RUN rc-status
 RUN touch /run/openrc/softlevel
 
+# install telegraf
+RUN echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN apk add telegraf
+
 # add user
 RUN adduser -D -g 'www' www
 RUN mkdir /www
@@ -21,8 +25,8 @@ RUN apk add php7 php7-fpm php7-common php7-iconv php7-json php7-gd php7-curl \
 	php7-dom php7-opcache php7-zlib php7-session php7-intl php7-zip
 
 # install mysql
-RUN apk add mariadb mariadb-client
-RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
+# RUN apk add mariadb mariadb-client
+# RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 # install wordpress
 RUN wget http://wordpress.org/latest.tar.gz
@@ -36,7 +40,8 @@ RUN chown -R 777 /www/wordpress/tmp
 RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 ADD srcs/nginx.conf /etc/nginx/nginx.conf
 ADD /srcs/wp-config.php /www/wordpress/wp-config.php
+ADD /srcs/telegraf.conf /etc/telegraf.conf
 ADD /srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 
-ENTRYPOINT sh /usr/bin/run.sh
+ENTRYPOINT /usr/bin/run.sh
