@@ -25,10 +25,6 @@ RUN apk add php7-fpm php7-mcrypt php7-soap php7-openssl php7-gmp php7-pdo_odbc p
 	php7-bz2 php7-iconv php7-pdo_dblib php7-curl php7-ctype php7-session php7-mbstring \
 	php7 php7-opcache php7-zlib
 
-# install mysql
-# RUN apk add mariadb mariadb-client
-# RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
-
 # install PhpMyAdmin
 RUN wget http://files.directadmin.com/services/all/phpMyAdmin/phpMyAdmin-5.0.2-all-languages.tar.gz
 RUN tar zxvf phpMyAdmin-5.0.2-all-languages.tar.gz

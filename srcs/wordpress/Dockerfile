@@ -24,9 +24,6 @@ RUN apk add php7 php7-fpm php7-common php7-iconv php7-json php7-gd php7-curl \
 	php7-mbstring php7-xmlrpc php7-posix php7-mcrypt php7-gettext php7-ldap php7-ctype \
 	php7-dom php7-opcache php7-zlib php7-session php7-intl php7-zip
 
-# install mysql
-# RUN apk add mariadb mariadb-client
-# RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 # install wordpress
 RUN wget http://wordpress.org/latest.tar.gz

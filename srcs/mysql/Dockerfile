@@ -11,8 +11,6 @@ RUN touch /run/openrc/softlevel
 RUN echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 RUN apk add telegraf
 
-# RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
-
 ADD /srcs/telegraf.conf /etc/telegraf.conf
 ADD ./srcs/run.sh /usr/bin/run.sh
 

@@ -4,15 +4,20 @@ rc-service vsftpd restart
 
 while true
 do
-	ftps=`rc-service nginx status | grep -c FAIL`
-
-	if [ $Nginx -eq 1 ]
+	if pgrep -x telegraf >/dev/null
 	then
-		echo "Nginx has stopped!"
-		echo "Restarting Nginx..."
-		rc-service nginx restart
+		echo "telegraf is up.."
 	else
-		echo "Nginx is up!"
+		echo "telegraf is down"
+		echo "quitting..."
+		exit 1
+	fi
+	if pgrep -x vsftpsd >/dev/null
+		echo "vsftpsd is up.."
+	else
+		echo "vsftpsd is down"
+		echo "Quitting..."
+		exit 1
 	fi
 	sleep 2
 done

@@ -38,16 +38,3 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 5050
-        # env:
-        # - name: WORDPRESS_DB_USER
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: mysql-secret
-        #       key: mysql-root-username
-        # - name: WORDPRESS_DB_PASSWORD
-        #   valueFrom:
-        #     secretKeyRef:
-        #       name: mysql-secret
-        #       key: mysql-root-password 
-        # - name: WORDPRESS_DB_NAME
-        #   value: "wordpress"
