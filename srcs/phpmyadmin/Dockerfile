@@ -1,6 +1,7 @@
 FROM alpine:3.12.3
 
 EXPOSE 5000
+VOLUME [ "sys/fs/cgroup" ]
 
 # install nginx
 RUN apk update && apk upgrade
@@ -34,10 +35,11 @@ RUN mkdir /www/phpmyadmin/tmp
 RUN chmod -R 777 /www/phpmyadmin/tmp
 
 # add configuration files
+RUN mkdir /etc/telegraf
+ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
 RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 ADD srcs/nginx.conf /etc/nginx/nginx.conf
 ADD srcs/config.inc.php /www/phpmyadmin/config.inc.php
-ADD /srcs/telegraf.conf /etc/telegraf.conf
 ADD /srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 

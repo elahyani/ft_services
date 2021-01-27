@@ -1,25 +1,30 @@
 #!/bin/sh
 
 # /usr/bin/telegraf --config /etc/telegraf.conf
-rc-service telegraf start
-/usr/sbin/grafana-server --config /usr/share/grafana/conf/defaults.ini  --homepath /usr/share/grafana/
+telegraf &
+
+cd /usr/share/grafana/
+
+grafana-server &
+sleep 2
 
 while true
 do
-	if pgrep -x telegraf >/dev/null
+	if pgrep telegraf >/dev/null 2>&1;
 	then
-		echo "telegraf is up.."
+		printf "telegraf is up.."
 	else
-		echo "telegraf is down"
-		echo "quitting..."
+		printf "telegraf is down\nExit..."
 		exit 1
 	fi
-	if pgrep -x grafana-server >/dev/null
-		echo "grafana is up.."
+	if pgrep grafana-server >/dev/null 2>&1;
+	then
+		printf "grafana is up.."
 	else
-		echo "grafana is down"
-		echo "Quitting..."
+		printf "grafana is down\nExit..."
 		exit 1
 	fi
 	sleep 2
 done
+
+exit 0

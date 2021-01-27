@@ -1,6 +1,7 @@
 FROM alpine:3.12.3
 
 EXPOSE 21
+VOLUME [ "sys/fs/cgroup" ]
 
 RUN apk update
 RUN apk add vsftpd openrc openssl openssh
@@ -15,9 +16,9 @@ RUN printf "MA\nKH\nKH\nORG_NM\nVERV_NM\n_\nftserver@projetc.com\n" | openssl re
 RUN adduser -D admin && echo "admin:12341234" | chpasswd
 RUN ssh-keygen -A
 
-
+RUN mkdir /etc/telegraf
+ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
 ADD srcs/vsftpd.conf /etc/vsftpd/vsftpd.conf
-ADD /srcs/telegraf.conf /etc/telegraf.conf
 ADD srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 

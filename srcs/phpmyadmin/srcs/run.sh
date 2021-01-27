@@ -1,32 +1,35 @@
 #!/bin/sh
 
-rc-service telegraf restart
-rc-service nginx start
+telegraf &
+
 rc-service php-fpm7 start
+rc-service nginx start
+sleep 2
 
 while true
 do
-	if pgrep -x telegraf >/dev/null
+	if pgrep nginx >/dev/null 2>&1
 	then
-		echo "Telegraf is up.."
+		printf "Nginx is up.."
 	else
-		echo "Telegraf is down"
-		echo "quitting..."
+		printf "Nginx is down\nExit..."
 		exit 1
 	fi
-	if pgrep -x nginx >/dev/null
-		echo "Nginx is up.."
+	if pgrep php-fpm7 >/dev/null 2>&1
+	then
+		printf "PHP is up.."
 	else
-		echo "Nginx is down"
-		echo "Quitting..."
+		printf "PHP is down\nExit..."
 		exit 1
 	fi
-	if pgrep -x php-fpm7 >/dev/null
-		echo "PHP is up.."
+	if pgrep telegraf >/dev/null 2>&1
+	then
+		printf "Telegraf is up.."
 	else
-		echo "PHP is down"
-		echo "Quitting..."
+		printf "Telegraf is down\nExit..."
 		exit 1
 	fi
 	sleep 2
 done
+
+exit 0

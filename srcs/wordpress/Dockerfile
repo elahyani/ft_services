@@ -1,6 +1,7 @@
 FROM alpine:3.12.3
 
 EXPOSE 5050
+VOLUME [ "sys/fs/cgroup" ]
 
 # install nginx
 RUN apk update && apk upgrade
@@ -34,10 +35,11 @@ RUN mkdir /www/wordpress/tmp
 RUN chown -R 777 /www/wordpress/tmp
 
 # add configuration files
+RUN mkdir /etc/telegraf
+ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
 RUN mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig
 ADD srcs/nginx.conf /etc/nginx/nginx.conf
 ADD /srcs/wp-config.php /www/wordpress/wp-config.php
-ADD /srcs/telegraf.conf /etc/telegraf.conf
 ADD /srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 

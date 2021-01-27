@@ -1,24 +1,35 @@
 #!/bin/sh
 
-rc-service telegraf start
+telegraf &
+
+rc-service sshd restart
 rc-service nginx start
+sleep 2
 
 while true
 do
-	if pgrep -x telegraf >/dev/null
+	if pgrep nginx >/dev/null 2>&1;
 	then
-		echo "telegraf is up.."
+		printf "Nginx is up.."
 	else
-		echo "telegraf is down"
-		echo "quitting..."
+		printf "Nginx is down\nExit..."
 		exit 1
 	fi
-	if pgrep -x nginx >/dev/null
-		echo "nginx is up.."
+	if pgrep sshd >/dev/null 2>&1;
+	then
+		printf "Sshd is up.."
 	else
-		echo "nginx is down"
-		echo "Quitting..."
+		printf "Sshd is down\nExit..."
+		exit 1
+	fi
+	if pgrep telegraf >/dev/null 2>&1;
+	then
+		printf "Telegraf is up.."
+	else
+		printf "Telegraf is down\nExit..."
 		exit 1
 	fi
 	sleep 2
 done
+
+exit 0

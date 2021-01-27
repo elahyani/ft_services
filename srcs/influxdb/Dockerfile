@@ -1,6 +1,7 @@
 FROM alpine:3.12.3
 
 EXPOSE 8086
+VOLUME [ "sys/fs/cgroup" ]
 
 RUN apk update
 RUN apk add openrc
@@ -11,8 +12,9 @@ RUN apk add telegraf
 
 RUN apk add influxdb
 
-ADD /srcs/telegraf.conf /etc/telegraf.conf
-ADD /srcs/influxdb.conf /etc/ifluxdb.conf
+RUN mkdir /etc/telegraf
+ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ADD /srcs/influxdb.conf /etc/influxdb.conf
 ADD /srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 

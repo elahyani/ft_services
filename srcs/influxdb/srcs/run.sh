@@ -1,30 +1,38 @@
 #!/bin/sh
 
-rc-service telegraf start
 
 rc-service influxdb start
+sleep 2
 influx -execute "CREATE USER admin WITH PASSWORD 'admin1234' WITH ALL PRIVILEGES"
-influx -username admin -password 'admin1234' -execute "CREATE DATABASE services"
-influx -username admin -password 'admin1234' -execute "grant ALL on services to admin"
-
+sleep 1
+influx -execute "CREATE DATABASE influxdb"
+sleep 1
+influx -execute "grant ALL on influxdb to admin" 
+sleep 2
 rc-service influxdb restart
+sleep 2
+
+telegraf &
+
+sleep 2
 
 while true
 do
-	if pgrep -x telegraf >/dev/null
+	if pgrep influxdb >/dev/null 2>&1;
 	then
-		echo "telegraf is up.."
+		printf "Influxdb is up.."
 	else
-		echo "telegraf is down"
-		echo "quitting..."
+		printf "Influxdb is down\nExit..."
 		exit 1
 	fi
-	if pgrep -x influxdb >/dev/null
-		echo "influxdb is up.."
+	if pgrep telegraf >/dev/null 2>&1;
+	then
+		printf "Telegraf is up.."
 	else
-		echo "influxdb is down"
-		echo "Quitting..."
+		printf "Telegraf is down\nExit..."
 		exit 1
 	fi
 	sleep 2
 done
+
+exit 0

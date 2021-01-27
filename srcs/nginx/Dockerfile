@@ -3,8 +3,11 @@ FROM alpine:3.12.3
 EXPOSE 80
 EXPOSE 443
 EXPOSE 22
+VOLUME [ "sys/fs/cgroup" ]
 
-RUN apk update && apk upgrade && apk add --no-cache bash openrc nginx openssl openssh
+RUN apk update && apk upgrade
+RUN apk add --no-cache openrc supervisor
+RUN apk add nginx openssl openssh
 RUN rc-status
 RUN touch /run/openrc/softlevel
 
@@ -28,7 +31,9 @@ RUN adduser -D elahyani
 RUN echo "elahyani:admin1234" | chpasswd
 RUN ssh-keygen -A
 
-ADD /srcs/telegraf.conf /etc/telegraf.conf
+RUN mkdir /etc/telegraf
+ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ADD /srcs/supervisord.conf /etc/supervisord.conf
 ADD srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 
