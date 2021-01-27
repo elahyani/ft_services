@@ -3,22 +3,22 @@
 
 rc-service influxdb start
 sleep 2
-influx -execute "CREATE USER admin WITH PASSWORD 'admin1234' WITH ALL PRIVILEGES"
-sleep 1
-influx -execute "CREATE DATABASE influxdb"
-sleep 1
-influx -execute "grant ALL on influxdb to admin" 
-sleep 2
-rc-service influxdb restart
-sleep 2
+# influx -execute "CREATE USER admin WITH PASSWORD 'admin1234' WITH ALL PRIVILEGES"
+# sleep 1
+# influx -username admin -password 'admin1234' -execute "CREATE DATABASE influxdb"
+# sleep 1
+# influx -username admin -password 'admin1234' -execute "grant ALL on influxdb to admin"
+# sleep 2
+# rc-service influxdb restart
+# sleep 2
+
 
 telegraf &
-
 sleep 2
 
 while true
 do
-	if pgrep influxdb >/dev/null 2>&1;
+	if pgrep influx >/dev/null 2>&1;
 	then
 		printf "Influxdb is up.."
 	else

@@ -15,6 +15,10 @@ spec:
       port: 21
       protocol: TCP
       targetPort: 21
+    - name: ftps-send
+      port: 30021
+      protocol: TCP
+      targetPort: 30021
 
 ---
 
@@ -39,3 +43,4 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 21
+            - containerPort: 30021

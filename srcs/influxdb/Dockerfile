@@ -9,10 +9,10 @@ RUN rc-status
 RUN touch /run/openrc/softlevel
 RUN echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 RUN apk add telegraf
+RUN mkdir /etc/telegraf
 
 RUN apk add influxdb
 
-RUN mkdir /etc/telegraf
 ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
 ADD /srcs/influxdb.conf /etc/influxdb.conf
 ADD /srcs/run.sh /usr/bin/run.sh

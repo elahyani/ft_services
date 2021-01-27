@@ -43,14 +43,14 @@ kubectl apply -f ./srcs/metallb/metallb.yaml
 
 echo -e "\n\033[32m________________Create Services________________\033[0m\n"
 sleep 1
-kubectl apply -f ./srcs/mysql/mysql-secret.yaml
 kubectl apply -f ./srcs/influxdb/influxdb-service.yaml
-kubectl apply -f ./srcs/grafana/grafana-service.yaml
+kubectl apply -f ./srcs/mysql/mysql-secret.yaml
+kubectl apply -f ./srcs/mysql/mysql-service.yaml
 kubectl apply -f ./srcs/nginx/nginx-service.yaml
 kubectl apply -f ./srcs/ftps/ftps-service.yaml
-kubectl apply -f ./srcs/mysql/mysql-service.yaml
 kubectl apply -f ./srcs/phpmyadmin/phpmyadmin-service.yaml
 kubectl apply -f ./srcs/wordpress/wordpress-service.yaml
+kubectl apply -f ./srcs/grafana/grafana-service.yaml
 
 echo -e "\n\033[32m________________Done________________\033[0m\n"
 # sleep 10

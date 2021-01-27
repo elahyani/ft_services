@@ -21,7 +21,7 @@ sleep 2
 
 while true
 do
-	if pgrep mariadb >/dev/null 2>&1
+	if pgrep mysql >/dev/null 2>&1
 	then
 		printf "Mariadb is up.."
 	else

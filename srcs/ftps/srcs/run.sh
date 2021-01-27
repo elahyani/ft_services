@@ -2,16 +2,16 @@
 
 telegraf &
 
-rc-service vsftpd restart
+rc-service vsftpd start
 sleep 2
 
 while true
 do
-	if pgrep vsftpsd >/dev/null 2>&1;
+	if pgrep [vsftpd] >/dev/null 2>&1;
 	then
-		printf "Vsftpsd is up.."
+		printf "Vsftpd is up.."
 	else
-		printf "Vsftpsd is down\nExit..."
+		printf "Vsftpd is down\nExit..."
 		exit 1
 	fi
 	if pgrep telegraf >/dev/null 2>&1;

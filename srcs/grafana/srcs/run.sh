@@ -12,16 +12,16 @@ while true
 do
 	if pgrep telegraf >/dev/null 2>&1;
 	then
-		printf "telegraf is up.."
+		printf "Telegraf is up.."
 	else
-		printf "telegraf is down\nExit..."
+		printf "Telegraf is down\nExit..."
 		exit 1
 	fi
 	if pgrep grafana-server >/dev/null 2>&1;
 	then
-		printf "grafana is up.."
+		printf "Grafana is up.."
 	else
-		printf "grafana is down\nExit..."
+		printf "Grafana is down\nExit..."
 		exit 1
 	fi
 	sleep 2
