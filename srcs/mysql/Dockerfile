@@ -13,6 +13,7 @@ RUN apk add telegraf
 
 RUN mkdir /etc/telegraf
 ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ADD ./srcs/wordpress.sql /
 ADD ./srcs/run.sh /usr/bin/run.sh
 
 RUN chmod +x /usr/bin/run.sh

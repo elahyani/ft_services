@@ -2,17 +2,20 @@
 
 
 telegraf &
+if [ ! -f "/var/lib/mysql/ib_buffer_pool" ]; then
+	/etc/init.d/mariadb setup
+	rc-service mariadb start
+	sleep 1
 
-/etc/init.d/mariadb setup
-rc-service mariadb start
-sleep 1
-
-mysql -u root -e "create user 'admin'@'%' identified by 'admin1234'"
-mysql -u root -e "create database wordpress"
-mysql -u root -e "grant all privileges on *.* to 'admin'@'%'"
-mysql -u root -e "flush privileges"
-mysql -u root -e "quit"
-rc-service mariadb stop
+	mysql -u root -e "create user 'admin'@'%' identified by 'admin1234'"
+	mysql -u root -e "create database wordpress"
+	mysql -u root -e "grant all privileges on *.* to 'admin'@'%'"
+	mysql -u root -e "flush privileges"
+	mysql -u root -e "quit"
+	# rc-service mariadb restart
+	mysql -u root < /wordpress.sql
+	rc-service mariadb stop
+fi
 sleep 3
 
 sed -i "s|.*skip-networking.*|#skip-networking|g" /etc/my.cnf.d/mariadb-server.cnf
