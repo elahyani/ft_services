@@ -13,6 +13,9 @@ RUN apk add telegraf grafana
 
 RUN mkdir /etc/telegraf
 ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
+ADD /srcs/dashboards/*.json /usr/share/grafana/conf/provisioning/dashboards/
+ADD /srcs/dashboards/sample.yaml /usr/share/grafana/conf/provisioning/dashboards/sample.yaml
+ADD /srcs/datasources/sample.yaml /usr/share/grafana/conf/provisioning/datasources/sample.yaml
 ADD /srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 
