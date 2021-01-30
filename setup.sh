@@ -1,12 +1,11 @@
 #!/bin/bash
 
 echo -e "\n\033[32m________________Start minikube________________\033[0m\n"	
-# sleep 1
-# minikube delete	
-# sleep 1
-# minikube start	
-# sleep 1
-# eval $(minikube docker-env)	
+minikube delete	
+sleep 1
+minikube start
+sleep 1
+eval $(minikube docker-env)
 
 echo -e "\n\033[32m________________Build Images________________\033[0m\n"
 echo -e "\033[32mBuilding InfluxDB Image...\033[0m\n"
@@ -53,6 +52,5 @@ kubectl apply -f ./srcs/wordpress/wordpress-service.yaml
 kubectl apply -f ./srcs/grafana/grafana-service.yaml
 
 echo -e "\n\033[32m________________Done________________\033[0m\n"
-# sleep 10
-# kubectl get svc
-# minikube dashboard
+
+minikube dashboard

@@ -15,7 +15,7 @@ spec:
       port: 21
       protocol: TCP
       targetPort: 21
-    - name: ftps-send
+    - name: pasv-port
       port: 30021
       protocol: TCP
       targetPort: 30021

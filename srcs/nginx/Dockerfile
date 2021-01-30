@@ -6,7 +6,7 @@ EXPOSE 22
 VOLUME [ "sys/fs/cgroup" ]
 
 RUN apk update && apk upgrade
-RUN apk add --no-cache openrc supervisor
+RUN apk add --no-cache openrc
 RUN apk add nginx openssl openssh
 RUN rc-status
 RUN touch /run/openrc/softlevel
@@ -33,7 +33,6 @@ RUN ssh-keygen -A
 
 RUN mkdir /etc/telegraf
 ADD /srcs/telegraf.conf /etc/telegraf/telegraf.conf
-ADD /srcs/supervisord.conf /etc/supervisord.conf
 ADD srcs/run.sh /usr/bin/run.sh
 RUN chmod +x /usr/bin/run.sh
 
