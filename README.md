@@ -3,14 +3,14 @@ System Administration and Networking Project.
 
 ## Features
 The project consists of setting up an infrastructure of different services, It is related to setting up of multi-service cluster, where each service is running in a dedicated container.
-- Containers are built with Alpine Linux.
+- Containers are built with ```Alpine``` Linux.
 - The Kubernetes web dashboard. which help you manage your cluster.
 - The Load Balancer which manages the external access of the services
-- A WordPress website listening on port 5050
-- PhpMyAdmin, listening on port 5000 and linked with the MySQL database.
-- A container with annginx server listening on ports 80 and 443.
-- A FTPS server listening on port 21.
-- A Grafana platform, listening on port 3000, linked with an InfluxDB database.
+- A ```WordPress``` website listening on port 5050
+- ```PhpMyAdmin```, listening on port 5000 and linked with the ```MySQL``` database.
+- A container with an ```nginx``` server listening on ports 80 and 443.
+- A ```FTPS``` server listening on port 21.
+- A ```Grafana``` platform, listening on port 3000, linked with an ```InfluxDB``` database.
 
 ## Requiremenets
 - ***[Docker](https://www.docker.com/)***
