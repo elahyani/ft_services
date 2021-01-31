@@ -1,56 +1,57 @@
 #!/bin/bash
 
-echo -e "\n\033[32m________________Start minikube________________\033[0m\n"	
-minikube delete	
+echo -e "\n\033[34m________________Start minikube________________\033[0m\n"	
+minikube delete
 sleep 1
 minikube start
 sleep 1
 eval $(minikube docker-env)
 
-echo -e "\n\033[32m________________Build Images________________\033[0m\n"
-echo -e "\033[32mBuilding InfluxDB Image...\033[0m\n"
-sleep 1
-docker build -t influxdb ./srcs/influxdb/	 1>/dev/null
-echo -e "\033[32mBuilding Grafana Image...\033[0m\n"
-sleep 1
-docker build -t grafana ./srcs/grafana/ 1>/dev/null
-echo -e "\033[32mBuilding Nginx Image...\033[0m\n"
-sleep 1
-docker build -t nginx ./srcs/nginx/ 1>/dev/null
-echo -e "\033[32mBuilding FTPS Image...\033[0m\n"
-sleep 1
-docker build -t ftps ./srcs/ftps/ 1>/dev/null
-echo -e "\033[32mBuilding MySQL Image...\033[0m\n"
-sleep 1
-docker build -t mysql ./srcs/mysql/ 1>/dev/null
-echo -e "\033[32mBuilding PhpMyAdmin Image...\033[0m\n"
-sleep 1
-docker build -t phpmyadmin ./srcs/phpmyadmin/ 1>/dev/null
-echo -e "\033[32mBuilding WordPress Image...\033[0m\n"
-sleep 1
-docker build -t wordpress ./srcs/wordpress/	 1>/dev/null
+services=(
+	influxdb
+	grafana
+	ftps
+	mysql
+	phpmyadmin
+	wordpress
+	nginx
+)
 
-echo -e "\033[32m________________Install MetalLB________________\033[0m\n"
-sleep 1
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml	
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml	
-# On first install only	
-kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"	
-echo -e "\n\033[32m________________config MetalLB________________\033[0m\n"
-sleep 1
-kubectl apply -f ./srcs/metallb/metallb.yaml
+echo -e "\n\033[34m________________Build Images________________\033[0m\n"
+for s in "${services[@]}"
+do
+	echo -e "\033[32mBuilding $s Image...\033[0m"
+	docker build -t $s ./srcs/$s/ 1>/dev/null
+	sleep 1
+done
 
-echo -e "\n\033[32m________________Create Services________________\033[0m\n"
+echo -e "\n\033[34m________________Install MetalLB________________\033[0m\n"
 sleep 1
-kubectl apply -f ./srcs/influxdb/influxdb-service.yaml
-kubectl apply -f ./srcs/mysql/mysql-secret.yaml
-kubectl apply -f ./srcs/mysql/mysql-service.yaml
-kubectl apply -f ./srcs/nginx/nginx-service.yaml
-kubectl apply -f ./srcs/ftps/ftps-service.yaml
-kubectl apply -f ./srcs/phpmyadmin/phpmyadmin-service.yaml
-kubectl apply -f ./srcs/wordpress/wordpress-service.yaml
-kubectl apply -f ./srcs/grafana/grafana-service.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml 1>/dev/null
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml 1>/dev/null
+# On first install only
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"  &>/dev/null
+echo -e "\033[32mInstalled.\033[0m"
+echo -e "\n\033[34m________________config MetalLB________________\033[0m\n"
+sleep 1
+kubectl apply -f ./srcs/metallb/metallb.yaml 1>/dev/null
+echo -e "\033[32mConfigMap Created.\033[0m"
 
-echo -e "\n\033[32m________________Done________________\033[0m\n"
+echo -e "\n\033[34m________________Create Services________________\033[0m\n"
+kubectl apply -f ./srcs/mysql/mysql-secret.yaml 1>/dev/null
+for s in ${services[@]}
+do
+	kubectl apply -f ./srcs/$s/$s-service.yaml 1>/dev/null
+	echo -e "\033[32m$s service created.\033[0m"
+	sleep 1
+done
+echo -e "\033[32m[+] Done\033[0m"
 
+sleep 5
+echo -e "\033[32m[+] Launch Dashboard...\033[0m"
 minikube dashboard
+
+# docker-machine create --driver virtualbox default
+# docker-machine env default
+# eval $(docker-machine env default)
+# eval $(minikube docker-env)
