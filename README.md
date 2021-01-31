@@ -1,7 +1,11 @@
 # ft_services
 System Administration and Networking project.
 
-## Usage
+## Requiremenets
+- Docker
+- Kubectl
+- Minikube
+
 ## Usage
 ```bash
 # run:
