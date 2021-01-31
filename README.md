@@ -1,14 +1,16 @@
 # ft_services
 System Administration and Networking project.
 
+## Features
+- 
 ## Requiremenets
-- Docker
-- Kubectl
-- Minikube
+- [Docker](https://www.docker.com/)
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/start/)
 
 ## Usage
 ```bash
-# run:
+# run the script setup.sh
 ./setup.sh
 ```
 ## Resources
