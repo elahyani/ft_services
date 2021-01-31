@@ -1,7 +1,7 @@
 # ft_services
 System Administration and Networking project.
 
-# Resources
+## Resources
 - https://kubernetes.io/docs/home/
 - https://kubernetes.io/docs/tutorials/hello-minikube/
 - https://www.osetc.com/en/how-to-install-and-configure-nginx-web-server-on-alpine-linux.html
