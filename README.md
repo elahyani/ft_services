@@ -1,8 +1,8 @@
 # ft_services
-System Administration and Networking project.
+System Administration and Networking Project.
 
 ## Features
-- 
+The project consists of setting up an infrastructure of different services, It is related to setting up of multi-service cluster, where each service is running in a dedicated container
 ## Requiremenets
 - ***[Docker](https://www.docker.com/)***
 - ***[Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)***
