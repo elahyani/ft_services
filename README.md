@@ -1,6 +1,12 @@
 # ft_services
 System Administration and Networking project.
 
+## Usage
+## Usage
+```bash
+# run:
+./setup.sh
+```
 ## Resources
 - https://kubernetes.io/docs/home/
 - https://kubernetes.io/docs/tutorials/hello-minikube/
