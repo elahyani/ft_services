@@ -3,7 +3,7 @@ System Administration and Networking Project.
 
 ## Features
 The project consists of setting up an infrastructure of different services, It is related to setting up of multi-service cluster, where each service is running in a dedicated container.
-- Containers are built with ```Alpine``` Linux.
+- Containers are built with [```Alpine```](https://alpinelinux.org/) Linux.
 - The Kubernetes web dashboard. which help you manage your cluster.
 - The Load Balancer which manages the external access of the services
 - A ```WordPress``` website listening on port 5050
