@@ -4,9 +4,9 @@ System Administration and Networking project.
 ## Features
 - 
 ## Requiremenets
-- [Docker](https://www.docker.com/)***
-- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)***
-- [Minikube](https://minikube.sigs.k8s.io/docs/start/)***
+- ***[Docker](https://www.docker.com/)***
+- ***[Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)***
+- ***[Minikube](https://minikube.sigs.k8s.io/docs/start/)***
 
 ## Usage
 ```bash
