@@ -16,6 +16,7 @@ The project consists of setting up an infrastructure of different services, It i
 - ***[Docker](https://www.docker.com/)***
 - ***[Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)***
 - ***[Minikube](https://minikube.sigs.k8s.io/docs/start/)***
+- ***[VirtualBox](https://www.virtualbox.org/)***
 
 ## Usage
 ```bash
